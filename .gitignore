@@ -4,6 +4,8 @@ node_modules/
 .vscode
 .DS_Store
 
+php_mailer/email_config.php
+
 config/*.php
 config/*.js
 !config/setup.php
