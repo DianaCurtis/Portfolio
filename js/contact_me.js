@@ -29,6 +29,7 @@ $(function() {
           message: message
         },
         cache: false,
+        timeout: 5000,
         success: function() {
           // Success message
           $('#success').html("<div class='alert alert-success'>");
