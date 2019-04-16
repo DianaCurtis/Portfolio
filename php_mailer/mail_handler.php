@@ -47,7 +47,7 @@ $mail->isHTML(true);                                  // Set email format to HTM
 
 $mail->Subject = 'mailer message from '.$formName;
 $mail->Body    = "
-        time: ".date('Y-m-d H:is:s')."<br>
+        time: ".date('Y-m-d H:i:s')."<br>
         from: {$_SERVER['REMOTE_ADDR']} <br>
         name: {$formName} <br>
         email: {$formEmail} <br>
