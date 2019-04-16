@@ -62,8 +62,6 @@ $(function() {
             .append("<strong>Your message has been sent. </strong>");
           $('#success > .alert-success')
             .append('</div>');
-          //clear all fields
-          $('#contactForm').trigger("reset");
         },
         error: function() {
           // Fail message
