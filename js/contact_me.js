@@ -8,11 +8,34 @@ $(function() {
     submitSuccess: function($form, event) {
       event.preventDefault(); // prevent default submit behaviour
       // get values from FORM
-      var name = $("input#name").val();
-      var email = $("input#email").val();
-      var phone = $("input#phone").val();
-      var message = $("textarea#message").val();
+      var name = $("input#name").val().trim();
+      var email = $("input#email").val().trim();
+      var phone = $("input#phone").val().trim();
+      var message = $("textarea#message").val().trim();
       var firstName = name; // For Success/Failure Message
+      if (name == ''){
+        $('#success').html("<div class='alert alert-danger'>");
+        $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+          .append("</button>");
+        $('#success > .alert-danger').append($("<strong>").text("You must enter in a valid name."));
+        $('#success > .alert-danger').append('</div>');
+        return;
+      } else if (email == ''){
+        $('#success').html("<div class='alert alert-danger'>");
+        $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+          .append("</button>");
+        $('#success > .alert-danger').append($("<strong>").text("You must enter in a valid email."));
+        $('#success > .alert-danger').append('</div>');
+        return;
+      } else if (message == ''){
+        $('#success').html("<div class='alert alert-danger'>");
+        $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+          .append("</button>");
+        $('#success > .alert-danger').append($("<strong>").text("You must enter a valid message."));
+        $('#success > .alert-danger').append('</div>');
+        return;
+      }
+
       // Check for white space in name for Success/Fail message
       if (firstName.indexOf(' ') >= 0) {
         firstName = name.split(' ').slice(0, -1).join(' ');
@@ -20,7 +43,7 @@ $(function() {
       $this = $("#sendMessageButton");
       $this.prop("disabled", true); // Disable submit button until AJAX call is complete to prevent duplicate messages
       $.ajax({
-        url:"php_mailer/mail_handler.php",
+        url: "php_mailer/mail_handler.php",
         type: "POST",
         data: {
           name: name,
@@ -29,6 +52,7 @@ $(function() {
           message: message
         },
         cache: false,
+        timeout: 5000,
         success: function() {
           // Success message
           $('#success').html("<div class='alert alert-success'>");
@@ -47,7 +71,7 @@ $(function() {
           $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
             .append("</button>");
           $('#success > .alert-danger').append($("<strong>").text("Sorry " + firstName + ", it seems that my mail server is not responding. Please try again later!"));
-          $('#success > .alert-danger').append('</div>');
+          $('#success > .alert-danger').append('</div>');     
         },
         complete: function() {
           setTimeout(function() {
